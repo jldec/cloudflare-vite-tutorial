@@ -9,6 +9,7 @@ export default {
     if (url.pathname.startsWith("/api/")) {
       return Response.json({
         name: "Cloudflare Workers",
+        time: Date.now(),
       });
     }
 

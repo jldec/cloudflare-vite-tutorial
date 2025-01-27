@@ -5,7 +5,9 @@ import './App.css'
 
 function App() {
   const [count, setCount] = useState(0)
-  const [name, setName] = useState("unknown");
+  const [name, setName] = useState<string>();
+  const [serverTime, setServerTime] = useState<string>();
+  const [fetchMs, setFetchMs] = useState<number>();
 
   return (
     <>
@@ -20,14 +22,17 @@ function App() {
       <h1>Vite + React</h1>
       <div className="card">
         <button
-          onClick={() => {
-            fetch("/api/")
-              .then((res) => res.json() as Promise<{ name: string }>)
-              .then((data) => setName(data.name));
+          onClick={async () => {
+            const start = performance.now();
+            const res = await fetch("/api/")
+            setFetchMs(performance.now() - start)
+            const data = await res.json() as { name: string, time: number }
+            setName(data.name)
+            setServerTime(new Date(data.time).toLocaleString())
           }}
           aria-label="get name"
         >
-          Name from API is: {name}
+          {name ?? ''} {serverTime ?? 'Click to fetch /api/'} {fetchMs ? `(${fetchMs.toFixed(0)}ms)` : ''}
         </button>
         <p>
           Edit <code>api/index.ts</code> to change the name
