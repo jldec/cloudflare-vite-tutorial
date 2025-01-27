@@ -19,7 +19,8 @@ function App() {
           <img src={reactLogo} className="logo react" alt="React logo" />
         </a>
       </div>
-      <h1>Vite + React</h1>
+      <h1>vite-plugin-cloudflare</h1>
+      <h3><a href="https://github.com/cloudflare/workers-sdk/tree/main/packages/vite-plugin-cloudflare#tutorial">GitHub cloudflare/workers-sdk</a></h3>
       <div className="card">
         <button
           onClick={async () => {
